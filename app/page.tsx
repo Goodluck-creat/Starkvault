@@ -369,10 +369,13 @@ const handleMint = async (id: string) => {
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 text-transparent bg-clip-text">
           StarkVault
         </h1>
-        <p className="text-gray-600 max-w-md">
-          Secure, Verify, and Protect your documents with AI authenticity and decentralized
-          storage.
-        </p>
+       <p className="text-gray-600 max-w-md">
+  Secure, verify, and protect your important documents with AI-powered authenticity checks 
+  and decentralized blockchain storage. StarkVault ensures that every file you upload is 
+  genuine, tamper-proof, and permanently accessible  giving you complete ownership and trust 
+  powered by StarkNet.
+</p>
+
         <button
           onClick={connectWallet}
           className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold shadow-md transition"
