@@ -1,4 +1,4 @@
-import { Contract, RpcProvider, Account, json } from "starknet";
+import { Contract, RpcProvider, Account, number } from "starknet";
 import abi from "../abi/starkvault_abi.json";
 
 // ✅ StarkNet RPC provider (Sepolia testnet)
@@ -18,7 +18,7 @@ const contract = new Contract(abi, contractAddress, provider);
  */
 export async function getDocument(tokenId: number) {
   try {
-    const result = await contract.get_document(tokenId);
+    const result = await contract.get_document(number.toFelt(tokenId));
     console.log("📄 Document Data:", result);
     return result;
   } catch (error) {
@@ -27,21 +27,30 @@ export async function getDocument(tokenId: number) {
 }
 
 /**
- * Write function - Mint a new document (requires wallet connection)
+ * Write function - Mint a new document
+ * Converts values to the correct StarkNet types
  */
 export async function mintDocument(
-  owner: string,
-  fileHash: string,
-  authenticityScore: number,
+  owner: string,             // StarkNet address of the owner
+  fileHash: string,          // File hash as hex string or BigInt
+  authenticityScore: number, // JS number
   account: Account
 ) {
   try {
     // Connect contract to user's account for transactions
-    contract.connect(account);
+    const userContract = contract.connect(account);
 
-    const tx = await contract.mint_document(owner, fileHash, authenticityScore);
+    // Convert JS types to StarkNet felt/u128
+    const fileHashFelt = BigInt(fileHash); // file hash as BigInt
+    const authenticityU128 = {
+      low: BigInt(authenticityScore), // split into low/high if > 2^64
+      high: BigInt(0),
+    };
+
+    const tx = await userContract.mint_document(owner, fileHashFelt, authenticityU128);
     console.log("⏳ Transaction sent:", tx.transaction_hash);
 
+    // Wait for transaction to be accepted on StarkNet
     await provider.waitForTransaction(tx.transaction_hash);
     console.log("✅ Document minted successfully!");
 
