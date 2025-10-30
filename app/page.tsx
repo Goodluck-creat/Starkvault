@@ -353,24 +353,7 @@ const handleMint = async (id: string) => {
       `}</style>
       
 
-      {/* CONNECTION SCREEN */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-orange-50 to-white">
-  {/* Background logo + overlay */}
-  <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-    <motion.img
-      src="/logo.jpg"
-      alt="StarkVault Background Logo"
-      className="w-96 h-96 opacity-10"
-      animate={{ y: [0, -30, 0] }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "easeInOut",
-      }}
-    />
-  </div>
-  <div className="absolute inset-0 bg-white/70 backdrop-blur-sm pointer-events-none"></div>
+     {/* CONNECTION SCREEN */}
 
   {/* Content */}
   <AnimatePresence>
@@ -383,19 +366,6 @@ const handleMint = async (id: string) => {
         transition={{ duration: 0.6 }}
         className="flex flex-col items-center text-center space-y-5 z-10"
       >
-        {/* Floating logo */}
-        <motion.img
-          src="/logo.jpg"
-          alt="StarkVault Logo"
-          className="w-32 h-32 mb-4 z-10"
-          animate={{ y: [0, -20, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
-        />
         <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 text-transparent bg-clip-text">
           StarkVault
         </h1>
@@ -412,7 +382,8 @@ const handleMint = async (id: string) => {
       </motion.div>
     )}
   </AnimatePresence>
-</div>
+
+
 
 
       {/* MAIN DASHBOARD */}
