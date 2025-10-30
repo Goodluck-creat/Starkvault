@@ -1,0 +1,53 @@
+[
+  {
+    "type": "constructor",
+    "name": "constructor",
+    "inputs": []
+  },
+  {
+    "type": "function",
+    "name": "mint_document",
+    "inputs": [
+      {
+        "name": "owner",
+        "type": "core::starknet::contract_address::ContractAddress"
+      },
+      {
+        "name": "file_hash",
+        "type": "core::felt252"
+      },
+      {
+        "name": "authenticity_score",
+        "type": "core::integer::u128"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "core::integer::u128"
+      }
+    ],
+    "state_mutability": "external"
+  },
+  {
+    "type": "function",
+    "name": "get_document",
+    "inputs": [
+      {
+        "name": "token_id",
+        "type": "core::integer::u128"
+      }
+    ],
+    "outputs": [
+      {
+        "type": "(core::starknet::contract_address::ContractAddress, core::felt252, core::integer::u128)"
+      }
+    ],
+    "state_mutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "starkvault::starkvault::Event",
+    "kind": "enum",
+    "variants": []
+  }
+]

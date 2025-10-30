@@ -1,33 +1,41 @@
-import { Contract, RpcProvider, Account, json } from "starknet";
-import abi from "../abi/starkvault_abi.json";
+import { Contract, RpcProvider, Account, json, Abi } from "starknet";
+import abiFile from "./abi/starkvault_abi.json";
 
-// ✅ StarkNet RPC provider (Sepolia testnet)
+const abi: Abi = { entries: Array.isArray(abiFile) ? abiFile : Object.values(abiFile) };
+
 const provider = new RpcProvider({
   nodeUrl: "https://starknet-sepolia.public.blastapi.io/rpc/v0_6",
 });
-
-// ✅ Your deployed contract address
+update here:
 const contractAddress =
   "0x02e7daa36fe0e3ca2557c5e1db3e3273dbc68100e913f7cb62e71cbb5093637c";
 
-// ✅ Connect to the contract (read-only mode)
-const contract = new Contract(abi, contractAddress, provider);
+let contract: Contract | null = null;
+
+try {
+  contract = new Contract(abi.entries, contractAddress, provider);
+  console.log("✅ Contract loaded successfully");
+} catch (error) {
+  console.error("❌ Failed to initialize contract:", error);
+}
 
 /**
- * Read function - Get a document by token ID
+ * ✅ Get document by token ID
  */
 export async function getDocument(tokenId: number) {
   try {
+    if (!contract) throw new Error("Contract not initialized");
     const result = await contract.get_document(tokenId);
     console.log("📄 Document Data:", result);
     return result;
   } catch (error) {
     console.error("❌ Error fetching document:", error);
+    return null;
   }
 }
 
 /**
- * Write function - Mint a new document (requires wallet connection)
+ * ✅ Mint new document (requires wallet)
  */
 export async function mintDocument(
   owner: string,
@@ -36,7 +44,8 @@ export async function mintDocument(
   account: Account
 ) {
   try {
-    // Connect contract to user's account for transactions
+    if (!contract) throw new Error("Contract not initialized");
+
     contract.connect(account);
 
     const tx = await contract.mint_document(owner, fileHash, authenticityScore);
@@ -48,6 +57,7 @@ export async function mintDocument(
     return tx;
   } catch (error) {
     console.error("❌ Error minting document:", error);
+    throw error;
   }
 }
 

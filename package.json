@@ -22,6 +22,7 @@
     "pinata": "^2.5.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "starknet": "^7.6.4",
     "sweetalert2": "^11.26.3",
     "tesseract.js-node": "^0.1.0",
     "web3.storage": "^4.5.5"

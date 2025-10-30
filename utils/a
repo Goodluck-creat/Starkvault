@@ -1,6 +1,4 @@
 "use client";
-import Image from "next/image";
-import logo from "./image/logo.jpg";
 import React, { useEffect, useState } from "react";
 import { Scanner } from "@yudiel/react-qr-scanner";
 import Swal from "sweetalert2";
@@ -42,7 +40,7 @@ export default function VerifyDocument() {
   const [showMain, setShowMain] = useState(false);
   const [page, setPage] = useState(1);
 
-  const ITEMS_PER_PAGE = 3;
+  const ITEMS_PER_PAGE = 5;
   const totalPages = Math.ceil(uploadedFiles.length / ITEMS_PER_PAGE);
   const paginatedFiles = uploadedFiles.slice(
     (page - 1) * ITEMS_PER_PAGE,
@@ -351,69 +349,34 @@ const handleMint = async (id: string) => {
           }
         }
       `}</style>
-      
 
       {/* CONNECTION SCREEN */}
-      <div className="relative min-h-screen flex flex-col items-center justify-center p-4 bg-gradient-to-b from-orange-50 to-white">
-  {/* Background logo + overlay */}
-  <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-    <motion.img
-      src="/logo.jpg"
-      alt="StarkVault Background Logo"
-      className="w-96 h-96 opacity-10"
-      animate={{ y: [0, -30, 0] }}
-      transition={{
-        duration: 4,
-        repeat: Infinity,
-        repeatType: "loop",
-        ease: "easeInOut",
-      }}
-    />
-  </div>
-  <div className="absolute inset-0 bg-white/70 backdrop-blur-sm pointer-events-none"></div>
-
-  {/* Content */}
-  <AnimatePresence>
-    {!showMain && (
-      <motion.div
-        key="connect"
-        initial={{ opacity: 0, y: 50 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: -100 }}
-        transition={{ duration: 0.6 }}
-        className="flex flex-col items-center text-center space-y-5 z-10"
-      >
-        {/* Floating logo */}
-        <motion.img
-          src="/logo.jpg"
-          alt="StarkVault Logo"
-          className="w-32 h-32 mb-4 z-10"
-          animate={{ y: [0, -20, 0] }}
-          transition={{
-            duration: 2,
-            repeat: Infinity,
-            repeatType: "loop",
-            ease: "easeInOut",
-          }}
-        />
-        <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 text-transparent bg-clip-text">
-          StarkVault
-        </h1>
-        <p className="text-gray-600 max-w-md">
-          Secure, Verify, and Protect your documents with AI authenticity and decentralized
-          storage.
-        </p>
-        <button
-          onClick={connectWallet}
-          className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold shadow-md transition"
-        >
-          Connect Wallet To Login
-        </button>
-      </motion.div>
-    )}
-  </AnimatePresence>
-</div>
-
+      <AnimatePresence>
+        {!showMain && (
+          <motion.div
+            key="connect"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -100 }}
+            transition={{ duration: 0.6 }}
+            className="flex flex-col items-center text-center space-y-5"
+          >
+            <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 text-transparent bg-clip-text">
+              StarkVault
+            </h1>
+            <p className="text-gray-600 max-w-md">
+              Secure, Verify, and Protect your documents with AI authenticity and decentralized
+              storage.
+            </p>
+            <button
+              onClick={connectWallet}
+              className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold shadow-md transition"
+            >
+              Connect Wallet To Login
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* MAIN DASHBOARD */}
       {showMain && (
