@@ -177,7 +177,7 @@ export default function VerifyDocument() {
     (e.target as HTMLInputElement).value = "";
   };
 
-  // ---------------- FAKE AI VERIFICATION ----------------
+  // ----------------  AI VERIFICATION ----------------
   const handleVerify = async (id: string) => {
     const fileEntry = uploadedFiles.find((f) => f.id === id);
     if (!fileEntry || !walletAddress) return;
